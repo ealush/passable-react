@@ -117,6 +117,8 @@ class PassableProvider extends Component {
                 onChange: this.onChange,
                 onBlur: this.onBlur,
                 fields: this.state.fields,
+                errors: this.state.errors,
+                warnings: this.state.warnings
             });
         );
     }
