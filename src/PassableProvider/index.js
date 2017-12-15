@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import passable from 'passable';
 import mergePassableObjectWithStateFields from './lib';
 
-class PassableWrapper extends Component {
+class PassableProvider extends Component {
     constructor(props) {
         super(props);
 
@@ -91,15 +92,13 @@ class PassableWrapper extends Component {
         } = this.props;
 
         return (
-            <form name={name} {...props}>
-                {children({
-                    onChange: this.onChange,
-                    onBlur: this.onBlur,
-                    fields: this.state.fields
-                })}
-            </form>
+            children({
+                onChange: this.onChange,
+                onBlur: this.onBlur,
+                fields: this.state.fields,
+            })
         );
     }
 }
 
-export default PassableWrapper;
+export default PassableProvider;

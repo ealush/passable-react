@@ -8,7 +8,7 @@ export default function passes(formdata) {
         });
 
         pass('phone', 'can either be a number, or empty', () => {
-            enforce(formdata.phone).anyOf({
+            enforce(parseInt(formdata.phone)).anyOf({
                 isNumber: true,
                 isEmpty: true
             });
