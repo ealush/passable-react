@@ -1,14 +1,15 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import passable from 'passable';
-import mergePassableObjectWithStateFields from './lib';
 
-class PassableWrapper extends Component {
+class PassableProvider extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
             fields: {},
-            valid: null
+            errors: {},
+            warnings: {}
         };
 
         this.onBlur = this.onBlur.bind(this);
@@ -25,11 +26,33 @@ class PassableWrapper extends Component {
     }
 
     processResults(passableObject) {
-        this.setState((prevState) => (
-            Object.assign({},
-                prevState,
-                mergePassableObjectWithStateFields(passableObject, prevState))
-        ));
+        this.setState((prevState) => {
+            const tested = Object.keys(passableObject.testsPerformed);
+            const nextState = Object.assign(prevState);
+            const fields = nextState.fields;
+
+            return tested.reduce((accumulator, current) => {
+                const passableField = passableObject.testsPerformed[current] || {};
+                const fieldFromState = fields[current] || {};
+                const hasError = passableField.failCount > 0;
+                const hasWarning = passableField.warnCount > 0;
+
+                hasError ? accumulator.errors[current] = passableField.failCount
+                    : delete accumulator.errors[current];
+
+                hasWarning ? accumulator.warnings[current] = passableField.warnCount
+                    : delete accumulator.warnings[current];
+
+
+                accumulator.fields[current] = Object.assign({}, fieldFromState, {
+                    hasError,
+                    hasWarning,
+                    errors: passableObject.validationErrors[current] || [],
+                    warnings: passableObject.validationWarnings[current] || []
+                });
+                return accumulator;
+            }, { fields, errors: nextState.errors, warnings: nextState.warnings});
+        });
     }
 
     run(specific = [], formData = this.getValues()) {
@@ -86,20 +109,17 @@ class PassableWrapper extends Component {
             children,
             name,
             passes,
-            schema,
             ...props
         } = this.props;
 
         return (
-            <form name={name} {...props}>
-                {children({
-                    onChange: this.onChange,
-                    onBlur: this.onBlur,
-                    fields: this.state.fields
-                })}
-            </form>
+            children({
+                onChange: this.onChange,
+                onBlur: this.onBlur,
+                fields: this.state.fields,
+            });
         );
     }
 }
 
-export default PassableWrapper;
+export default PassableProvider;
