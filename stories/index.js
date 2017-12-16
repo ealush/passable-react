@@ -8,10 +8,10 @@ storiesOf('Simple Example', module)
     .add('with text', () => (
         <PassableProvider name="MyForm" passes={passes}>
             {({onChange, onBlur, fields}) => (
-                <div>
+                <form>
                     <input type="text" onChange={onChange} onBlur={onBlur} name="username"/>
                     <input type="number" onChange={onChange} onBlur={onBlur} name="phone"/>
-                </div>
+                </form>
             )}
         </PassableProvider>
     ));

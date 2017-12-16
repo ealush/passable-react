@@ -105,12 +105,7 @@ class PassableProvider extends Component {
     }
 
     render() {
-        const {
-            children,
-            name,
-            passes,
-            ...props
-        } = this.props;
+        const { children } = this.props;
 
         return (
             children({
@@ -119,7 +114,7 @@ class PassableProvider extends Component {
                 fields: this.state.fields,
                 errors: this.state.errors,
                 warnings: this.state.warnings
-            });
+            })
         );
     }
 }
