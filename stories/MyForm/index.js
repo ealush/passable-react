@@ -13,7 +13,7 @@ class MyForm extends Component {
 
         return (
             <PassableProvider name="MyForm" passes={passes}>
-                {({onChange, onBlur, fields}) => (
+                {({onChange, onBlur}) => (
                     <form>
                         <input type="text" onChange={onChange} onBlur={onBlur} name="username"/>
                         <input type="number" onChange={onChange} onBlur={onBlur} name="phone"/>

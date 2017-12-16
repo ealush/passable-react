@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types'
 import passable from 'passable';
 
 class PassableProvider extends Component {
@@ -19,7 +18,7 @@ class PassableProvider extends Component {
     }
 
     validateField(name, value) {
-        let formData = this.getValues();
+        const formData = this.getValues();
         if (value) { formData[name] = value; }
 
         this.run(name, formData);
