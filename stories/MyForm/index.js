@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import PassableProvider from '../../src/PassableProvider';
-import passes from './passes';
+import {withPassable} from '../../src/PassableProvider';
 
 class MyForm extends Component {
 
@@ -11,17 +10,18 @@ class MyForm extends Component {
 
     render() {
 
+        const {
+            onChange,
+            onBlur
+        } = this.props;
+
         return (
-            <PassableProvider name="MyForm" passes={passes}>
-                {({onChange, onBlur, fields}) => (
-                    <form>
-                        <input type="text" onChange={onChange} onBlur={onBlur} name="username"/>
-                        <input type="number" onChange={onChange} onBlur={onBlur} name="phone"/>
-                    </form>
-                )}
-            </PassableProvider>
+            <form>
+                <input type="text" onChange={onChange} onBlur={onBlur} name="username"/>
+                <input type="number" onChange={onChange} onBlur={onBlur} name="phone"/>
+            </form>
         );
     }
 }
 
-export default MyForm;
+export default withPassable(MyForm);

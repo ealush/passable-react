@@ -1,9 +1,12 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
+import PassableProvider from '../src/PassableProvider';
+import passes from './MyForm/passes';
 import MyForm from './MyForm';
 
 storiesOf('Simple Example', module)
     .add('with text', () => (
-        <MyForm/>
+        <PassableProvider name="MyForm" passes={passes}>
+            <MyForm/>
+        </PassableProvider>
     ));
