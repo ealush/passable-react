@@ -1,58 +1,27 @@
 import React, { Component } from 'react';
-import Passable from 'passable';
+import PassableProvider from '../../src/PassableProvider';
 import passes from './passes';
 
 class MyForm extends Component {
+
     constructor(props) {
         super(props);
-
-        this.schema = {
-            ['field1']: {
-                required: true,
-                dependsOn: ['field2']
-            }
-        }
-    }
-
-    changeHandler(e, type) {
-
+        this.state = {};
     }
 
     render() {
+
         return (
-            <Form name="MyForm" schema={this.schema} passes={}>
-                <input type="text" onChange={this.onChange}/>
-            </Form>
+            <PassableProvider name="MyForm" passes={passes}>
+                {({onChange, onBlur, fields}) => (
+                    <form>
+                        <input type="text" onChange={onChange} onBlur={onBlur} name="username"/>
+                        <input type="number" onChange={onChange} onBlur={onBlur} name="phone"/>
+                    </form>
+                )}
+            </PassableProvider>
         );
     }
 }
 
-// ###################################### //
-
-// ###################################### //
-
-class Form extends Component {
-    constructor(props) {
-        super(props);
-    }
-
-    validate(name = '', specific = [], passes = () => { }, custom = {}) {
-        return Passable(name, specific, passes, custom);
-    }
-
-    render() {
-        const {
-            children,
-            passes,
-            name
-        } = this.props;
-
-        const valididy = this.validate(name);
-
-        return (
-            <form>
-                {() => {}}
-            </form>
-        );
-    }
-}
+export default MyForm;
