@@ -1,0 +1,3 @@
+import mergePassableObjectWithStateFields from './mergePassableObjectWithStateFields';
+
+export default mergePassableObjectWithStateFields;
