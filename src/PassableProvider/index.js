@@ -6,7 +6,7 @@ class PassableProvider extends Component {
         super(props);
 
         this.state = {
-            fields: {},
+            fields: this.initFields(props.initialFormState),
             errors: {},
             warnings: {}
         };
@@ -15,6 +15,14 @@ class PassableProvider extends Component {
         this.onChange = this.onChange.bind(this);
         this.custom = this.props.custom || {};
         this.passes = this.props.passes;
+    }
+
+    initFields(initialFormState = {}) {
+        return Object.keys(initialFormState).reduce((fields, currentField) => {
+            fields[currentField] = fields[currentField] || {};
+            fields[currentField].value = initialFormState[currentField];
+            return fields;
+        }, {});
     }
 
     validateField(name, value) {
