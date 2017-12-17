@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import passable from 'passable';
+import {inputAttributesByType} from './lib'
 
 class PassableProvider extends Component {
     constructor(props) {
@@ -23,13 +24,6 @@ class PassableProvider extends Component {
             fields[currentField].value = initialFormState[currentField];
             return fields;
         }, {});
-    }
-
-    validateField(name, value) {
-        const formData = this.getValues();
-        if (value) { formData[name] = value; }
-
-        this.run(name, formData);
     }
 
     processResults(passableObject) {
@@ -62,7 +56,8 @@ class PassableProvider extends Component {
         });
     }
 
-    run(specific = [], formData = this.getValues()) {
+    validate(specific = []) {
+        const formData = this.getValues();
         const result = passable(this.props.name,
             specific,
             this.passes(formData),
@@ -73,31 +68,45 @@ class PassableProvider extends Component {
 
     getValues() {
         const fields = this.state.fields;
-        const values = Object.keys(fields).reduce((accumulator, current) => {
+        return Object.keys(fields).reduce((accumulator, current) => {
             accumulator[current] = fields[current];
             return accumulator;
         }, {});
-        return values;
+    }
+
+    getFieldAttributes(name, element) {
+        if (!element) {
+            return {};
+        }
+
+        const formData = this.getValues();
+
+        return Object.assign({}, formData[name], inputAttributesByType(element));
     }
 
     onChange(e) {
         const target = e.target;
-        const { name, value } = target;
-
-        this.validateField(name, value);
+        const { name } = target;
+        const fieldAttributes = this.getFieldAttributes(name, target);
 
         this.setInField(name, {
-            dirty: true
+            dirty: true,
+            ...fieldAttributes
         });
+
+        this.validate(name);
+
     }
 
     onBlur(e) {
         const target = e.target;
-        const {
-            name
-        } = target;
+        const { name } = target;
+        const fieldAttributes = this.getFieldAttributes(name, target);
 
-        this.setInField(name, { touched: true });
+        this.setInField(name, {
+            touched: true,
+            ...fieldAttributes
+        });
     }
 
     setInField(name, entries = {}) {

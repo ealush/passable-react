@@ -10,7 +10,9 @@ class MyForm extends Component {
 
         this.initialFormState = {
             username: 'Any',
-            phone: 123456
+            phone: 123456,
+            checkbox: true,
+            radio: false
         }
     }
 
@@ -22,6 +24,8 @@ class MyForm extends Component {
                     <form>
                         <input type="text" onChange={onChange} onBlur={onBlur} defaultValue={fields.username.value} name="username"/>
                         <input type="number" onChange={onChange} onBlur={onBlur} defaultValue={fields.phone.value} name="phone"/>
+                        <input type="checkbox" onChange={onChange} onBlur={onBlur} defaultChecked={fields.checkbox.value} name="checkbox"/>
+                        <input type="radio" onChange={onChange} onBlur={onBlur} defaultChecked={fields.radio.value} name="radio"/>
                     </form>
                 )}
             </PassableProvider>
