@@ -12,7 +12,10 @@ class MyForm extends Component {
             username: 'Any',
             phone: 123456,
             checkbox: true,
-            radio: false
+            radio: {
+                value: 'yo',
+                checked: true
+            }
         }
     }
 
