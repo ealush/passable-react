@@ -57,7 +57,7 @@ class PassableProvider extends Component {
         this.setState((prevState) => mergeValidationResults(prevState, result));
     }
 
-    setInField(name, entries = {}) {
+    setInField(name, entries = {}, callback) {
         this.setState((prevState) => mergeFieldIntoState(prevState, name, entries));
     }
 
