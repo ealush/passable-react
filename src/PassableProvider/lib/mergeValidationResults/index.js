@@ -1,23 +1,24 @@
 import { mergeInField, generateFieldValidationSummary } from '../index';
 
-export default function mergeValidationResults(state, passableObject, entries) {
-    const tested = Object.keys(passableObject.testsPerformed);
+export default function mergeValidationResults(state, passableObject) {
+    const tested = passableObject.testsPerformed;
     const nextState = Object.assign(state);
     const fields = nextState.fields;
 
-    return tested.reduce((accumulator, current) => {
+    return Object.keys(tested).reduce((accumulator, current) => {
+        const curr = tested[current];
         const {
             hasError,
             hasWarning
-        } = generateFieldValidationSummary(tested[current]);
+        } = generateFieldValidationSummary(curr);
 
-        hasError ? accumulator.errors[current] = passableField.failCount
+        hasError ? accumulator.errors[current] = curr.failCount
             : delete accumulator.errors[current];
 
-        hasWarning ? accumulator.warnings[current] = passableField.warnCount
+        hasWarning ? accumulator.warnings[current] = curr.warnCount
             : delete accumulator.warnings[current];
 
-        accumulator[current] = mergeInField(fields[current], {
+        accumulator.fields[current] = mergeInField(fields[current], {
             hasError,
             hasWarning,
             errors: passableObject.validationErrors[current] || [],

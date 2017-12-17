@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import passable from 'passable';
-import {inputAttributesByType, buildFieldsObject, mergeFieldIntoState} from './lib'
+import {inputAttributesByType, buildFieldsObject, mergeFieldIntoState, mergeValidationResults} from './lib'
 
 class PassableProvider extends Component {
     constructor(props) {
@@ -23,9 +23,7 @@ class PassableProvider extends Component {
     }
 
     processResults(passableObject) {
-        this.setState((prevState) => {
-
-        });
+        this.setState((prevState) => mergeValidationResults(prevState, passableObject));
     }
 
     validate(specific = []) {
@@ -63,7 +61,6 @@ class PassableProvider extends Component {
         });
 
         this.validate(name);
-
     }
 
     onBlur(e) {
