@@ -1,6 +1,6 @@
 import {isAnObject} from '../index';
 
-export default function buildFieldsObject(initialStateObject) {
+export default function buildFieldsObject(initialStateObject = {}) {
     return Object.keys(initialStateObject).reduce((fields, current) => {
         fields[current] = fields[current] || {};
         if (isAnObject(initialStateObject[current])) {

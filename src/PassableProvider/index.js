@@ -7,7 +7,7 @@ class PassableProvider extends Component {
         super(props);
 
         this.state = {
-            fields: this.initFields(props.initialFormState),
+            fields: buildFieldsObject(props.initialFormState),
             errors: {},
             warnings: {}
         };
@@ -18,36 +18,10 @@ class PassableProvider extends Component {
         this.passes = this.props.passes;
     }
 
-    initFields(initialFormState = {}) {
-        return buildFieldsObject(initialFormState);
-    }
-
-    processResults(passableObject) {
-        this.setState((prevState) => mergeValidationResults(prevState, passableObject));
-    }
-
-    validate(specific = []) {
-        const formData = this.getFields();
-        const result = passable(this.props.name,
-            specific,
-            this.passes(formData),
-            this.custom);
-
-        this.processResults(result);
-    }
-
-    getFields() {
-        return Object.assign({}, this.state.fields);
-    }
-
     getFieldAttributes(name, element) {
-        if (!element) {
-            return {};
-        }
+        if (!element) { return {}; }
 
-        const formData = this.getFields();
-
-        return Object.assign({}, formData[name], inputAttributesByType(element));
+        return Object.assign({}, this.state.fields[name], inputAttributesByType(element));
     }
 
     onChange(e) {
@@ -74,15 +48,22 @@ class PassableProvider extends Component {
         });
     }
 
+    validate(specific = []) {
+        const result = passable(this.props.name,
+            specific,
+            this.passes(this.state.fields),
+            this.custom);
+
+        this.setState((prevState) => mergeValidationResults(prevState, result));
+    }
+
     setInField(name, entries = {}) {
         this.setState((prevState) => mergeFieldIntoState(prevState, name, entries));
     }
 
     render() {
-        const { children } = this.props;
-
         return (
-            children({
+            this.props.children({
                 onChange: this.onChange,
                 onBlur: this.onBlur,
                 fields: this.state.fields,
