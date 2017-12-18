@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import passable from 'passable';
-import {inputAttributesByType, buildFieldsObject, mergeFieldIntoState, mergeValidationResults} from './lib'
+import {fieldAttributesByType, buildFieldsObject, mergeFieldIntoState, mergeValidationResults} from './lib'
 
 class PassableProvider extends Component {
     constructor(props) {
@@ -21,7 +21,7 @@ class PassableProvider extends Component {
     getFieldAttributes(name, element) {
         if (!element) { return {}; }
 
-        return Object.assign({}, this.state.fields[name], inputAttributesByType(element));
+        return Object.assign({}, this.state.fields[name], fieldAttributesByType(element));
     }
 
     onChange(e) {
@@ -33,7 +33,6 @@ class PassableProvider extends Component {
             dirty: true,
             ...fieldAttributes
         });
-
         this.validate(name);
     }
 
