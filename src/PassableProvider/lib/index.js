@@ -1,4 +1,4 @@
-import inputAttributesByType from './inputAttributesByType';
+import fieldAttributesByType from './fieldAttributesByType';
 import buildFieldsObject from './buildFieldsObject';
 import isAnObject from './isAnObject';
 import mergeFieldIntoState from './mergeFieldIntoState';
@@ -7,7 +7,7 @@ import mergeInField from './mergeInField';
 import generateFieldValidationSummary from './generateFieldValidationSummary';
 
 export {
-    inputAttributesByType,
+    fieldAttributesByType,
     buildFieldsObject,
     isAnObject,
     mergeFieldIntoState,

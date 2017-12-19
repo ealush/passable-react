@@ -1,4 +1,4 @@
-export default function mergeFieldIntoState(state, name, entries) {
+export default function mergeFieldIntoState(state = {}, name: '', entries = {}) {
     const fields = state.fields || {};
     const field = fields[name] || {};
     const newField = Object.assign({}, field, entries);
