@@ -31,7 +31,19 @@ describe('Test isAnObject function', () => {
         expect(isAnObject(new WeakSet())).toBe(false);
     });
 
-    it('should return false for primitive types', () => {
+    it('should return false for a String', () => {
+        expect(isAnObject(new String('hi'))).toBe(false);
+    });
+
+    it('should return false for a Number', () => {
+        expect(isAnObject(new Number(1))).toBe(false);
+    });
+
+    it('should return false for a Boolean', () => {
+        expect(isAnObject(new Boolean(true))).toBe(false);
+    });
+
+    it('should return false for primitive literals types', () => {
         expect(isAnObject(1)).toBe(false);
         expect(isAnObject('hi')).toBe(false);
         expect(isAnObject(null)).toBe(false);
