@@ -9,8 +9,7 @@
         }
     },
     "env": {
-        "browser": true,
-        "jquery": true
+        "browser": true
     },
     "globals": {
         "module": true
