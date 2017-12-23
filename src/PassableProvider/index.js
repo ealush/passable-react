@@ -24,7 +24,7 @@ class PassableProvider extends Component {
         return Object.assign({}, this.state.fields[name], fieldAttributesByType(element));
     }
 
-    onChange(e) {
+    onChange = (e) => {
         const target = e.target;
         const { name } = target;
         const fieldAttributes = this.getFieldAttributes(name, target);
@@ -36,7 +36,7 @@ class PassableProvider extends Component {
         this.validate(name);
     }
 
-    onBlur(e) {
+    onBlur = (e) => {
         const target = e.target;
         const { name } = target;
         const fieldAttributes = this.getFieldAttributes(name, target);
