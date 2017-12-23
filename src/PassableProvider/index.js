@@ -12,8 +12,6 @@ class PassableProvider extends Component {
             warnings: {}
         };
 
-        this.onBlur = this.onBlur.bind(this);
-        this.onChange = this.onChange.bind(this);
         this.custom = this.props.custom || {};
         this.passes = this.props.passes;
     }
