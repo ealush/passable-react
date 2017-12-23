@@ -7,11 +7,15 @@ export default function isAnObject(item) {
         return false;
     }
 
-    if (item instanceof Map || item instanceof WeakMap) {
-        return false;
-    }
-
-    if (item instanceof Set || item instanceof WeakSet) {
+    if ([
+        Map,
+        WeakMap,
+        Set,
+        WeakSet,
+        Number,
+        String,
+        Boolean,
+    ].some((type) => item instanceof type)) {
         return false;
     }
 
