@@ -1,8 +1,14 @@
-import { mergeInField, generateFieldValidationSummary } from '../index';
+import { generateFieldValidationSummary } from '../index';
 
 export default function mergeValidationResults(state, passableObject) {
-    const tested = passableObject.testsPerformed;
-    const nextState = Object.assign(state);
+    const nextState = Object.assign({ errors: {}, warnings: {}, fields: {}}, state);
+    if (!state || !passableObject) { return nextState; }
+
+    const validationResult = Object.assign({
+        validationErrors: {},
+        validationWarnings: {}
+    }, passableObject);
+    const tested = validationResult.testsPerformed || [];
     const fields = nextState.fields;
 
     return Object.keys(tested).reduce((accumulator, current) => {
@@ -18,11 +24,11 @@ export default function mergeValidationResults(state, passableObject) {
         hasWarning ? accumulator.warnings[current] = curr.warnCount
             : delete accumulator.warnings[current];
 
-        accumulator.fields[current] = mergeInField(fields[current], {
+        accumulator.fields[current] = Object.assign({}, fields[current], {
             hasError,
             hasWarning,
-            errors: passableObject.validationErrors[current] || [],
-            warnings: passableObject.validationWarnings[current] || []
+            errors: validationResult.validationErrors[current] || [],
+            warnings: validationResult.validationWarnings[current] || []
         });
 
         return accumulator;
