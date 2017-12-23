@@ -32,8 +32,9 @@ class PassableProvider extends Component {
         this.setInField(name, {
             dirty: true,
             ...fieldAttributes
+        }, () => {
+            this.validate(name);
         });
-        this.validate(name);
     }
 
     onBlur = (e) => {
@@ -57,7 +58,7 @@ class PassableProvider extends Component {
     }
 
     setInField(name, entries = {}, callback) {
-        this.setState((prevState) => mergeFieldIntoState(prevState, name, entries));
+        this.setState((prevState) => mergeFieldIntoState(prevState, name, entries), callback);
     }
 
     render() {
