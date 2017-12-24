@@ -60,6 +60,8 @@ class PassableProvider extends Component {
     }
 
     render() {
+        if (typeof this.props.children !== 'function') { return null; }
+
         return (
             this.props.children({
                 onChange: this.onChange,

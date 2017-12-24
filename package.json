@@ -8,6 +8,10 @@
     "test": "jest",
     "test:watch": "jest --watch"
   },
+  "jest": {
+    "setupFiles": ["./test/jestSetup.js"],
+    "snapshotSerializers": ["enzyme-to-json/serializer"]
+  },
   "author": "",
   "license": "ISC",
   "devDependencies": {
@@ -19,8 +23,10 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
     "enzyme": "^3.2.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.0",
     "eslint": "^4.13.1",
-    "jest": "^22.0.3",
+    "jest": "^22.0.4",
     "react-test-renderer": "^16.2.0"
   },
   "dependencies": {
