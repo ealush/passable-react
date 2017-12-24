@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test PassableProvider render function PassableProvider children rendering should render all children correctly 1`] = `
+<form
+  action=""
+>
+  <label
+    className="username"
+  >
+    Username
+    <input
+      defaultValue="hello"
+      name="field_1"
+      type="text"
+    />
+  </label>
+  <label
+    className="is-alive"
+  >
+    Is Alive
+    <input
+      defaultChecked={true}
+      name="field_2"
+      type="checkbox"
+    />
+  </label>
+</form>
+`;
