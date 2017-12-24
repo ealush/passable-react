@@ -22,21 +22,21 @@ class MyForm extends Component {
     render() {
 
         return (
-            <PassableProvider passes={passes} initialFormState={this.initialFormState}>
+            <PassableProvider name="myform" passes={passes} initialFormState={this.initialFormState}>
                 {({onChange, onBlur, fields}) => (
-                    <form>
-                        <input type="text" onChange={onChange} onBlur={onBlur} defaultValue={fields.username.value} name="username"/>
-                        <input type="number" onChange={onChange} onBlur={onBlur} defaultValue={fields.phone.value} name="phone"/>
-                        <input type="checkbox" onChange={onChange} onBlur={onBlur} defaultChecked={fields.checkbox.value} name="checkbox"/>
-                        <input type="radio" onChange={onChange} onBlur={onBlur} defaultChecked={fields.radio.value} name="radio"/>
-                        <select name="select" onChange={onChange} onBlur={onBlur}>
+                    <form onChange={onChange} onBlur={onBlur}>
+                        <input type="text" defaultValue={fields.username.value} name="username"/>
+                        <input type="number" defaultValue={fields.phone.value} name="phone"/>
+                        <input type="checkbox" defaultChecked={fields.checkbox.value} name="checkbox"/>
+                        <input type="radio" defaultChecked={fields.radio.value} name="radio"/>
+                        <select name="select">
                             <option value="1">1</option>
                             <option value="2">2</option>
                             <option value="3">3</option>
                             <option value="4">4</option>
                             <option value="5">5</option>
                         </select>
-                        <textarea name="textarea" onChange={onChange} onBlur={onBlur}/>
+                        <textarea name="textarea"/>
                     </form>
                 )}
             </PassableProvider>
