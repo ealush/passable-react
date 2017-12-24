@@ -46,7 +46,7 @@ class PassableProvider extends Component {
         });
     }
 
-    validate(specific = []) {
+    validate = (specific = []) => {
         const result = passable(this.props.name,
             specific,
             this.passes(this.state.fields),
@@ -66,6 +66,7 @@ class PassableProvider extends Component {
             this.props.children({
                 onChange: this.onChange,
                 onBlur: this.onBlur,
+                validate: this.validate,
                 fields: this.state.fields,
                 errors: this.state.errors,
                 warnings: this.state.warnings
