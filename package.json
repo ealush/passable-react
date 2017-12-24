@@ -9,7 +9,7 @@
     "test:watch": "jest --watch"
   },
   "jest": {
-    "setupFiles": ["./test/jestsetup.js"],
+    "setupFiles": ["<rootDir>/jestSetup.js"],
     "snapshotSerializers": ["enzyme-to-json/serializer"]
   },
   "author": "",
