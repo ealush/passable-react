@@ -61,12 +61,14 @@ class PassableProvider extends Component {
 
     render() {
         if (typeof this.props.children !== 'function') { return null; }
+        if (typeof this.props.name !== 'string') { return null; }
+        if (typeof this.props.passes !== 'function') { return null; }
 
         return (
             this.props.children({
                 onChange: this.onChange,
                 onBlur: this.onBlur,
-                validate: this.validate,
+                onSubmit: this.onSubmit,
                 fields: this.state.fields,
                 errors: this.state.errors,
                 warnings: this.state.warnings
