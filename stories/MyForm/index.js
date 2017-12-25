@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PassableProvider from '../../dist/passable-provider';
+import PassableProvider from '../../src/index';
 import passes from './passes';
 
 class MyForm extends Component {
@@ -23,7 +23,7 @@ class MyForm extends Component {
 
         return (
             <PassableProvider name="myform" passes={passes} initialFormState={this.initialFormState}>
-                {({onChange, onBlur, fields}) => (
+                {({onChange, onBlur, fields, validate}) => (
                     <form onChange={onChange} onBlur={onBlur}>
                         <input type="text" defaultValue={fields.username.value} name="username"/>
                         <input type="number" defaultValue={fields.phone.value} name="phone"/>
@@ -36,7 +36,8 @@ class MyForm extends Component {
                             <option value="4">4</option>
                             <option value="5">5</option>
                         </select>
-                        <textarea name="textarea"/>
+                        <textarea name="textarea" />
+                        <input type="button" onClick={validate} value="submit"/>
                     </form>
                 )}
             </PassableProvider>

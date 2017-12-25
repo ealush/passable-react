@@ -31,7 +31,7 @@ class PassableProvider extends Component {
             dirty: true,
             ...fieldAttributes
         }, () => {
-            this.validate(name);
+            this.validate(e, name);
         });
     }
 
@@ -46,7 +46,7 @@ class PassableProvider extends Component {
         });
     }
 
-    validate = (specific = []) => {
+    validate = (e, specific = []) => {
         const result = passable(this.props.name,
             specific,
             this.passes(this.state.fields),
