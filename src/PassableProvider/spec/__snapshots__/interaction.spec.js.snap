@@ -79,59 +79,8 @@ Object {
 
 exports[`Test user interaction Passable validation scenarios validates the whole form on submit 1`] = `
 Object {
-  "errors": Object {
-    "field_1": 1,
-    "field_3": 1,
-  },
-  "fields": Object {
-    "field_1": Object {
-      "errors": Array [
-        "field_1 error string",
-      ],
-      "hasError": true,
-      "hasWarning": false,
-      "warnings": Array [],
-    },
-    "field_2": Object {
-      "errors": Array [],
-      "hasError": false,
-      "hasWarning": false,
-      "warnings": Array [],
-    },
-    "field_3": Object {
-      "errors": Array [
-        "field_3 error string",
-      ],
-      "hasError": true,
-      "hasWarning": false,
-      "warnings": Array [],
-    },
-    "field_4": Object {
-      "errors": Array [],
-      "hasError": false,
-      "hasWarning": true,
-      "warnings": Array [
-        "field_4 error string",
-      ],
-    },
-    "field_5": Object {
-      "errors": Array [],
-      "hasError": false,
-      "hasWarning": false,
-      "warnings": Array [],
-    },
-    "field_6": Object {
-      "errors": Array [],
-      "hasError": false,
-      "hasWarning": true,
-      "warnings": Array [
-        "field_6 error string",
-      ],
-    },
-  },
-  "warnings": Object {
-    "field_4": 1,
-    "field_6": 1,
-  },
+  "errors": Object {},
+  "fields": Object {},
+  "warnings": Object {},
 }
 `;

@@ -37,7 +37,7 @@ describe('Test user interaction', () => {
         });
 
         it('validates the whole form on submit', () => {
-            wrapper.find('[type="submit"]').simulate('change');
+            wrapper.find('[type="submit"]').simulate('click');
             expect(wrapper.state()).toMatchSnapshot();
         });
     });

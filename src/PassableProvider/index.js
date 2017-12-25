@@ -68,7 +68,8 @@ class PassableProvider extends Component {
             this.props.children({
                 onChange: this.onChange,
                 onBlur: this.onBlur,
-                onSubmit: this.onSubmit,
+                onSubmit: this.validate,
+                validate: this.validate,
                 fields: this.state.fields,
                 errors: this.state.errors,
                 warnings: this.state.warnings
