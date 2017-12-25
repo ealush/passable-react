@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PassableProvider from '../../src/PassableProvider';
+import PassableProvider from '../../dist/passable-provider';
 import passes from './passes';
 
 class MyForm extends Component {
