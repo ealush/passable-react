@@ -71,4 +71,20 @@ describe('Test touched/dirty behavior', () => {
         wrapper.find('[name="field_3"]').simulate('change');
         expect(wrapper.state()).toMatchSnapshot();
     });
+
+});
+
+describe('Test children as function properties', () => {
+    let wrapper;
+
+    it('passes down all interaction functions and store objects', () => {
+        mount(
+            <PassableProvider name="form_1" passes={passes}>
+                {(props) => {
+                    expect(props).toMatchSnapshot();
+                    return null;
+                }}
+            </PassableProvider>
+        );
+    });
 });

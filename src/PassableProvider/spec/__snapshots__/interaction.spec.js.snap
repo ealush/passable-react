@@ -1,5 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Test children as function properties passes down all interaction functions and store objects 1`] = `
+Object {
+  "errors": Object {},
+  "fields": Object {},
+  "onBlur": [Function],
+  "onChange": [Function],
+  "onSubmit": [Function],
+  "validate": [Function],
+  "warnings": Object {},
+}
+`;
+
 exports[`Test touched/dirty behavior adds dirty to field-state on change 1`] = `
 Object {
   "errors": Object {
