@@ -11,8 +11,8 @@ describe('Test user interaction', () => {
         beforeEach(() => {
             wrapper = mount(
                 <PassableProvider name="form_1" passes={passes}>
-                    {({ onChange, onBlur, validate, fields, errors, warnings }) => (
-                        <form onChange={onChange} onBlur={onBlur} onSubmit={validate}>
+                    {({ validateOnEvent, setTouchedOnEvent, validateAll, fields, errors, warnings }) => (
+                        <form onChange={validateOnEvent} onBlur={setTouchedOnEvent} onSubmit={validateAll}>
                             <input type="text" name="field_1" />
                             <input type="text" name="field_2" />
                             <input type="text" name="field_3" />
@@ -49,8 +49,8 @@ describe('Test touched/dirty behavior', () => {
     beforeEach(() => {
         wrapper = mount(
             <PassableProvider name="form_1" passes={passes}>
-                {({ onChange, onBlur, validate, fields, errors, warnings }) => (
-                    <form onChange={onChange} onBlur={onBlur} onSubmit={validate}>
+                {({ validateOnEvent, setTouchedOnEvent, validateAll, fields, errors, warnings }) => (
+                    <form onChange={validateOnEvent} onBlur={setTouchedOnEvent} onSubmit={validateAll}>
                         <input type="text" name="field_2"/>
                         <input type="radio" name="field_3"/>
                         <input type="text" name="field_5"/>
@@ -72,6 +72,15 @@ describe('Test touched/dirty behavior', () => {
         expect(wrapper.state()).toMatchSnapshot();
     });
 
+    it('validates field and does not set dirty when setDirty is marked as false', () => {
+        const wrapper = mount(
+            <PassableProvider name="form_1" passes={passes}>
+                {({ validateOnEvent }) => ( <input type="text" name="field_2" onChange={(e) => validateOnEvent(e, false)}/> )}
+            </PassableProvider>
+        );
+        wrapper.find('[name="field_2"]').simulate('change');
+        expect(wrapper.state()).toMatchSnapshot();
+    });
 });
 
 describe('Test children as function properties', () => {

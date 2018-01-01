@@ -23,8 +23,8 @@ class MyForm extends Component {
 
         return (
             <PassableProvider name="myform" passes={passes} initialFormState={this.initialFormState}>
-                {({onChange, onBlur, fields, validate}) => (
-                    <form onChange={onChange} onBlur={onBlur}>
+                {({validateOnEvent, setTouchedOnEvent, fields, validateAll}) => (
+                    <form onChange={validateOnEvent} onBlur={setTouchedOnEvent}>
                         <input type="text" defaultValue={fields.username.value} name="username"/>
                         <input type="number" defaultValue={fields.phone.value} name="phone"/>
                         <input type="checkbox" defaultChecked={fields.checkbox.value} name="checkbox"/>
@@ -37,7 +37,7 @@ class MyForm extends Component {
                             <option value="5">5</option>
                         </select>
                         <textarea name="textarea" />
-                        <input type="button" onClick={validate} value="submit"/>
+                        <input type="button" onClick={validateAll} value="submit"/>
                     </form>
                 )}
             </PassableProvider>

@@ -3,6 +3,7 @@ import passable from 'passable';
 import {fieldAttributesByType, buildFieldsObject, mergeFieldIntoState, mergeValidationResults} from './lib'
 
 class PassableProvider extends Component {
+
     constructor(props) {
         super(props);
 
@@ -22,23 +23,26 @@ class PassableProvider extends Component {
         return Object.assign({}, this.state.fields[name], fieldAttributesByType(element));
     }
 
-    onChange = (e) => {
-        const target = e.target;
+    getFieldDataFromEvent = ({ target } = {}) => {
         const { name } = target;
         const fieldAttributes = this.getFieldAttributes(name, target);
+        return { name, fieldAttributes };
+    }
+
+    validateOnEvent = (e, setDirty = true) => {
+        const { name, fieldAttributes } = this.getFieldDataFromEvent(e);
+        const dirtyProp = setDirty ? { dirty: true } : {};
 
         this.setInField(name, {
-            dirty: true,
+            ...dirtyProp,
             ...fieldAttributes
         }, () => {
-            this.validate(e, name);
+            this.validateOne(name);
         });
     }
 
-    onBlur = (e) => {
-        const target = e.target;
-        const { name } = target;
-        const fieldAttributes = this.getFieldAttributes(name, target);
+    setTouchedOnEvent = (e) => {
+        const { name, fieldAttributes } = this.getFieldDataFromEvent(e);
 
         this.setInField(name, {
             touched: true,
@@ -46,10 +50,22 @@ class PassableProvider extends Component {
         });
     }
 
-    validate = (e, specific = []) => {
+    fieldEventValidate = (e) => {
+        const { name, fieldAttributes } = this.getFieldDataFromEvent(e);
+    }
+
+    validateOne = (name, field) => {
+        this.validate(name, field);
+    }
+
+    validateAll = () => {
+        this.validate();
+    }
+
+    validate = (specific = [], field) => {
         const result = passable(this.props.name,
             specific,
-            this.passes(this.state.fields),
+            this.passes(field || this.state.fields || {}),
             this.custom);
 
         this.setState((prevState) => mergeValidationResults(prevState, result));
@@ -66,10 +82,10 @@ class PassableProvider extends Component {
 
         return (
             this.props.children({
-                onChange: this.onChange,
-                onBlur: this.onBlur,
-                onSubmit: this.validate,
-                validate: this.validate,
+                setTouchedOnEvent: this.setTouchedOnEvent,
+                validateOnEvent: this.validateOnEvent,
+                validateOne: this.validateOne,
+                validateAll: this.validateAll,
                 fields: this.state.fields,
                 errors: this.state.errors,
                 warnings: this.state.warnings

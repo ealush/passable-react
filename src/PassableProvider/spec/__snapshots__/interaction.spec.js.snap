@@ -4,10 +4,10 @@ exports[`Test children as function properties passes down all interaction functi
 Object {
   "errors": Object {},
   "fields": Object {},
-  "onBlur": [Function],
-  "onChange": [Function],
-  "onSubmit": [Function],
-  "validate": [Function],
+  "setTouchedOnEvent": [Function],
+  "validateAll": [Function],
+  "validateOnEvent": [Function],
+  "validateOne": [Function],
   "warnings": Object {},
 }
 `;
@@ -41,6 +41,22 @@ Object {
     "field_2": Object {
       "touched": true,
       "value": "",
+    },
+  },
+  "warnings": Object {},
+}
+`;
+
+exports[`Test touched/dirty behavior validates field and does not set dirty when setDirty is marked as false 1`] = `
+Object {
+  "errors": Object {},
+  "fields": Object {
+    "field_2": Object {
+      "errors": Array [],
+      "hasError": false,
+      "hasWarning": false,
+      "value": "",
+      "warnings": Array [],
     },
   },
   "warnings": Object {},
