@@ -1,6 +1,6 @@
 {
   "name": "passable-react",
-  "version": "0.2.0",
+  "version": "0.2.2",
   "description": "Wrapper Component for react that allows easy Passable integration",
   "main": "./dist/passable-provider.js",
   "scripts": {

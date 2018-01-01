@@ -50,10 +50,6 @@ class PassableProvider extends Component {
         });
     }
 
-    fieldEventValidate = (e) => {
-        const { name, fieldAttributes } = this.getFieldDataFromEvent(e);
-    }
-
     validateOne = (name, field) => {
         this.validate(name, field);
     }
