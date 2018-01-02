@@ -22,7 +22,7 @@ class MyForm extends Component {
     render() {
 
         return (
-            <PassableProvider name="myform" passes={passes} initialFormState={this.initialFormState}>
+            <PassableProvider passes={passes} initialFormState={this.initialFormState}>
                 {({validateOnEvent, setTouchedOnEvent, fields, validateAll}) => (
                     <form onChange={validateOnEvent} onBlur={setTouchedOnEvent}>
                         <input type="text" defaultValue={fields.username.value} name="username"/>

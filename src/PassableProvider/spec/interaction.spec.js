@@ -10,7 +10,7 @@ describe('Test user interaction', () => {
 
         beforeEach(() => {
             wrapper = mount(
-                <PassableProvider name="form_1" passes={passes}>
+                <PassableProvider passes={passes}>
                     {({ validateOnEvent, setTouchedOnEvent, validateAll, fields, errors, warnings }) => (
                         <form onChange={validateOnEvent} onBlur={setTouchedOnEvent} onSubmit={validateAll}>
                             <input type="text" name="field_1" />
@@ -48,7 +48,7 @@ describe('Test touched/dirty behavior', () => {
 
     beforeEach(() => {
         wrapper = mount(
-            <PassableProvider name="form_1" passes={passes}>
+            <PassableProvider passes={passes}>
                 {({ validateOnEvent, setTouchedOnEvent, validateAll, fields, errors, warnings }) => (
                     <form onChange={validateOnEvent} onBlur={setTouchedOnEvent} onSubmit={validateAll}>
                         <input type="text" name="field_2"/>
@@ -88,7 +88,7 @@ describe('Test children as function properties', () => {
 
     it('passes down all interaction functions and store objects', () => {
         mount(
-            <PassableProvider name="form_1" passes={passes}>
+            <PassableProvider passes={passes}>
                 {(props) => {
                     expect(props).toMatchSnapshot();
                     return null;

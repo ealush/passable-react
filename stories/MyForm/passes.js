@@ -1,17 +1,19 @@
-export default function passes(formdata) {
-    return (pass, enforce) => {
+import passable from 'passable';
+
+export default function passes({ specific = [], data, custom }) {
+    return passable('myform', specific, (pass, enforce) => {
         pass('username', 'should be a string between 3 and 10 chars', () => {
-            enforce(formdata.username.value).allOf({
+            enforce(data.username.value).allOf({
                 largerThanOrEquals: 5,
                 smallerThanOrEquals: 10
             });
         });
 
         pass('phone', 'can either be a number, or empty', () => {
-            enforce(parseInt(formdata.phone.value)).anyOf({
+            enforce(parseInt(data.phone.value)).anyOf({
                 isNumber: true,
                 isEmpty: true
             });
         });
-    };
+    }, custom);
 }

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import passable from 'passable';
 import {fieldAttributesByType, buildFieldsObject, mergeFieldIntoState, mergeValidationResults} from './lib'
 
 class PassableProvider extends Component {
@@ -50,21 +49,20 @@ class PassableProvider extends Component {
         });
     }
 
-    validateOne = (name, field) => {
-        this.validate(name, field);
+    validateOne = (name, data) => {
+        this.validate(name, data || this.state.fields[name] || {});
     }
 
     validateAll = () => {
         this.validate();
     }
 
-    validate = (specific = [], field) => {
-        const result = passable(this.props.name,
+    validate = (specific = [], data) => {
+        this.setState((prevState) => mergeValidationResults(prevState, this.passes({
             specific,
-            this.passes(field || this.state.fields || {}),
-            this.custom);
-
-        this.setState((prevState) => mergeValidationResults(prevState, result));
+            data: data || this.state.fields || {},
+            custom: this.custom
+        })));
     }
 
     setInField(name, entries = {}, callback) {
@@ -73,7 +71,6 @@ class PassableProvider extends Component {
 
     render() {
         if (typeof this.props.children !== 'function') { return null; }
-        if (typeof this.props.name !== 'string') { return null; }
         if (typeof this.props.passes !== 'function') { return null; }
 
         return (

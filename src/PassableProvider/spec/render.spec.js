@@ -15,7 +15,7 @@ describe('Test PassableProvider render function', () => {
 
     beforeEach(() => {
         formRender = shallow(
-            <PassableProvider name="form_1" passes={() => undefined} initialFormState={initialFormState}>
+            <PassableProvider name="form_1" passes={new Function()} initialFormState={initialFormState}>
                 {(fields) => (
                     <form action="">
                         <label className="username">Username
@@ -37,7 +37,7 @@ describe('Test PassableProvider render function', () => {
 
         it('should render null when children is not a function', () => {
             expect(shallow(
-                <PassableProvider name="form_1" passes={() => undefined} initialFormState={initialFormState}>
+                <PassableProvider name="form_1" passes={new Function()} initialFormState={initialFormState}>
                     <input/>
                 </PassableProvider>
             ).html()).toBe(null);
@@ -56,16 +56,7 @@ describe('Test PassableProvider render function', () => {
 
     describe('General API', () => {
 
-        it('returns null when no (or invalid) form name is specified', () => {
-            const wrapper = mount(
-                <PassableProvider passes={() => undefined}>
-                    {() => (<input type="text" name="field_1" />)}
-                </PassableProvider>
-            );
-            expect(wrapper.html()).toBe(null);
-        });
-
-        it('returns null when no (or invalid) passes are specified', () => {
+        it('renders null when no (or invalid) passes are specified', () => {
             const wrapper = mount(
                 <PassableProvider name="form_1" >
                     {() => (<input type="text" name="field_1" />)}
