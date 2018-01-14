@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test buildFieldsObject function should assume value when not an object 1`] = `
+Object {
+  "field_1": Object {
+    "errors": Array [],
+    "value": true,
+    "warnings": Array [],
+  },
+}
+`;
+
+exports[`Test buildFieldsObject function should reduce initial state into an object 1`] = `
+Object {
+  "field_1": Object {
+    "checked": true,
+    "errors": Array [],
+    "value": "on",
+    "warnings": Array [],
+  },
+}
+`;

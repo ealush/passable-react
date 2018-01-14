@@ -9,6 +9,10 @@ export default function buildFieldsObject(initialStateObject) {
             // silly assumption. need to revise it.
             fields[current].value = initialStateObject[current];
         }
+        fields[current] = Object.assign({
+            errors: [],
+            warnings: []
+        }, fields[current]);
         return fields;
     }, {});
 }
