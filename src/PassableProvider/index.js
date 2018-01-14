@@ -50,7 +50,7 @@ class PassableProvider extends Component {
     }
 
     validateOne = (name, data) => {
-        this.validate(name, data || this.state.fields[name] || {});
+        this.validate(name, this.state.fields || {});
     }
 
     validateAll = () => {
