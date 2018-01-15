@@ -10,9 +10,8 @@ export default function passes({ specific = [], data, custom }) {
         });
 
         pass('phone', 'can either be a number, or empty', () => {
-            enforce(parseInt(data.phone.value)).anyOf({
-                isNumber: true,
-                isEmpty: true
+            enforce(parseInt(data.phone.value)).allOf({
+                isEmpty: false
             });
         });
     }, custom);

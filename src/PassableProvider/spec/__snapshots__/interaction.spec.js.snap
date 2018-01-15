@@ -14,6 +14,7 @@ Object {
 
 exports[`Test touched/dirty behavior adds dirty to field-state on change 1`] = `
 Object {
+  "errorCount": 1,
   "errors": Object {
     "field_3": 1,
   },
@@ -30,12 +31,14 @@ Object {
       "warnings": Array [],
     },
   },
+  "warningCount": 0,
   "warnings": Object {},
 }
 `;
 
 exports[`Test touched/dirty behavior adds touched to field-state on blur 1`] = `
 Object {
+  "errorCount": 0,
   "errors": Object {},
   "fields": Object {
     "field_2": Object {
@@ -43,12 +46,14 @@ Object {
       "value": "",
     },
   },
+  "warningCount": 0,
   "warnings": Object {},
 }
 `;
 
 exports[`Test touched/dirty behavior validates field and does not set dirty when setDirty is marked as false 1`] = `
 Object {
+  "errorCount": 0,
   "errors": Object {},
   "fields": Object {
     "field_2": Object {
@@ -59,12 +64,14 @@ Object {
       "warnings": Array [],
     },
   },
+  "warningCount": 0,
   "warnings": Object {},
 }
 `;
 
 exports[`Test user interaction Passable validation scenarios uses \`specific\` argument to only validate field_1 on change (error) 1`] = `
 Object {
+  "errorCount": 1,
   "errors": Object {
     "field_1": 1,
   },
@@ -80,12 +87,14 @@ Object {
       "warnings": Array [],
     },
   },
+  "warningCount": 0,
   "warnings": Object {},
 }
 `;
 
 exports[`Test user interaction Passable validation scenarios uses \`specific\` argument to only validate field_4 on change (warn) 1`] = `
 Object {
+  "errorCount": 0,
   "errors": Object {},
   "fields": Object {
     "field_4": Object {
@@ -99,6 +108,7 @@ Object {
       ],
     },
   },
+  "warningCount": 1,
   "warnings": Object {
     "field_4": 1,
   },
@@ -107,8 +117,10 @@ Object {
 
 exports[`Test user interaction Passable validation scenarios validates the whole form on submit 1`] = `
 Object {
+  "errorCount": 0,
   "errors": Object {},
   "fields": Object {},
+  "warningCount": 0,
   "warnings": Object {},
 }
 `;

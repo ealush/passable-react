@@ -9,7 +9,9 @@ class PassableProvider extends Component {
         this.state = {
             fields: buildFieldsObject(props.initialFormState),
             errors: {},
-            warnings: {}
+            warnings: {},
+            warningCount: 0,
+            errorCount: 0
         };
 
         this.custom = props.custom || {};
@@ -70,12 +72,15 @@ class PassableProvider extends Component {
     validate = (specific = [], data) => {
         this.setState((prevState) => {
             const fields = data || this.state.fields || {};
-            const nextState = Object.assign({}, prevState, { fields });
-            return mergeValidationResults(nextState, this.passes({
+            let nextState = Object.assign({}, prevState, { fields });
+            nextState = mergeValidationResults(nextState, this.passes({
                 specific,
                 data: nextState.fields,
                 custom: this.custom
             }));
+            nextState.warningCount = Object.keys(nextState.warnings).length;
+            nextState.errorCount = Object.keys(nextState.errors).length;
+            return nextState;
         });
     }
 
