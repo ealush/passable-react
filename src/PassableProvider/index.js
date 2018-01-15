@@ -16,9 +16,9 @@ class PassableProvider extends Component {
         this.passes = props.passes;
     }
 
-    componentDidUpdate() {
-        if (this.props.onStateChange) {
-            return this.props.onStateChange(this.state);
+    componentDidUpdate(prevProps, prevState) {
+        if (this.props.formStateUpdated) {
+            return this.props.formStateUpdated(this.state, prevState);
         }
     }
 
