@@ -12,8 +12,14 @@ class PassableProvider extends Component {
             warnings: {}
         };
 
-        this.custom = this.props.custom || {};
-        this.passes = this.props.passes;
+        this.custom = props.custom || {};
+        this.passes = props.passes;
+    }
+
+    componentDidUpdate() {
+        if (this.props.onStateChange) {
+            return this.props.onStateChange(this.state);
+        }
     }
 
     getFieldAttributes(name, element) {
@@ -32,16 +38,20 @@ class PassableProvider extends Component {
         const { name, fieldAttributes } = this.getFieldDataFromEvent(e);
         const dirtyProp = setDirty ? { dirty: true } : {};
 
-        this.setInField(name, {
+        const nextState = mergeFieldIntoState(this.state, name, {
             ...dirtyProp,
             ...fieldAttributes
-        }, () => {
-            this.validateOne(name);
         });
+
+        this.validateOne(name, nextState.fields);
     }
 
     setTouchedOnEvent = (e) => {
         const { name, fieldAttributes } = this.getFieldDataFromEvent(e);
+
+        if (this.state.fields[name] && this.state.fields[name].touched) {
+            return;
+        }
 
         this.setInField(name, {
             touched: true,
@@ -50,7 +60,7 @@ class PassableProvider extends Component {
     }
 
     validateOne = (name, data) => {
-        this.validate(name, this.state.fields || {});
+        this.validate(name, data || his.state.fields || {});
     }
 
     validateAll = () => {
@@ -58,11 +68,15 @@ class PassableProvider extends Component {
     }
 
     validate = (specific = [], data) => {
-        this.setState((prevState) => mergeValidationResults(prevState, this.passes({
-            specific,
-            data: data || this.state.fields || {},
-            custom: this.custom
-        })));
+        this.setState((prevState) => {
+            const fields = data || this.state.fields || {};
+            const nextState = Object.assign({}, prevState, { fields });
+            return mergeValidationResults(nextState, this.passes({
+                specific,
+                data: nextState.fields,
+                custom: this.custom
+            }));
+        });
     }
 
     setInField(name, entries = {}, callback) {
