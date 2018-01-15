@@ -26,38 +26,16 @@ describe('Test mergeValidationResults function', () => {
                 field_1: ['error_string']
             },
             validationWarnings: {}
-        })).toEqual({
-            errors: {
-                field_1: 1
-            },
-            warnings: {},
-            fields: {
-                field_1: {
-                    errors: ['error_string'],
-                    hasError: true,
-                    hasWarning: false,
-                    warnings: [],
-                    touched: true
-                },
-                field_2: {
-                    value: 1
-                }
-            }
-        })
+        })).toMatchSnapshot();
     });
 
     it('should default to empty passable object when of invalid type', () => {
-        const expectedResult = Object.assign(state, {
-            errors: {},
-            warnings: {}
-        });
-
-        expect(mergeValidationResults(state, 1)).toEqual(expectedResult);
-        expect(mergeValidationResults(state, null)).toEqual(expectedResult);
-        expect(mergeValidationResults(state, [])).toEqual(expectedResult);
-        expect(mergeValidationResults(state, true)).toEqual(expectedResult);
-        expect(mergeValidationResults(state, 'false')).toEqual(expectedResult);
-        expect(mergeValidationResults(state, new Function())).toEqual(expectedResult);
+        expect(mergeValidationResults(state, 1)).toMatchSnapshot();;
+        expect(mergeValidationResults(state, null)).toMatchSnapshot();;
+        expect(mergeValidationResults(state, [])).toMatchSnapshot();;
+        expect(mergeValidationResults(state, true)).toMatchSnapshot();;
+        expect(mergeValidationResults(state, 'false')).toMatchSnapshot();;
+        expect(mergeValidationResults(state, new Function())).toMatchSnapshot();;
     });
 
     it('should return default `state` if missing passable object', () => {
@@ -66,16 +44,10 @@ describe('Test mergeValidationResults function', () => {
             warnings: {}
         });
 
-        expect(mergeValidationResults(state)).toEqual(expectedResult);
+        expect(mergeValidationResults(state)).toMatchSnapshot();;
     });
 
     it('should return default `state` if no arguments passed', () => {
-        const expectedResult = {
-            errors: {},
-            warnings: {},
-            fields: {}
-        };
-
-        expect(mergeValidationResults()).toEqual(expectedResult);
+        expect(mergeValidationResults()).toMatchSnapshot();;
     });
 });

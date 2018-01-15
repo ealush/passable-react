@@ -1,5 +1,7 @@
 const path = require('path'),
-    webpack = require('webpack');
+    webpack = require('webpack'),
+    UglifyJSPlugin = require('uglifyjs-webpack-plugin');
+
 
 module.exports = {
     entry: `${__dirname}/src/index.js`,
@@ -23,9 +25,6 @@ module.exports = {
         }]
     },
     plugins: [
-        new webpack.optimize.UglifyJsPlugin({
-            minimize: true,
-            sourceMap: true
-        })
+        new UglifyJSPlugin({sourceMap: true})
     ]
 };

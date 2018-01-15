@@ -1,17 +1,19 @@
-import { generateFieldValidationSummary } from '../index';
+import { generateFieldValidationSummary, getDefaultState } from '../index';
+import deepassign from '@fiverr/futile/lib/deepassign';
 
 export default function mergeValidationResults(state, passableObject) {
-    const nextState = Object.assign({ errors: {}, warnings: {}, fields: {}}, state);
+    let nextState = deepassign({}, getDefaultState(), state);
     if (!state || !passableObject) { return nextState; }
 
-    const validationResult = Object.assign({
+    const validationResult = deepassign({
         validationErrors: {},
         validationWarnings: {}
     }, passableObject);
+
     const tested = validationResult.testsPerformed || [];
     const fields = nextState.fields;
 
-    return Object.keys(tested).reduce((accumulator, current) => {
+    nextState = Object.keys(tested).reduce((accumulator, current) => {
         const curr = tested[current];
         const {
             hasError,
@@ -30,7 +32,9 @@ export default function mergeValidationResults(state, passableObject) {
             errors: validationResult.validationErrors[current] || [],
             warnings: validationResult.validationWarnings[current] || []
         });
-
         return accumulator;
-    }, { fields, errors: nextState.errors, warnings: nextState.warnings});
+    }, { fields, errors: nextState.errors, warnings: nextState.warnings });
+    nextState.warningCount = Object.keys(nextState.warnings).length;
+    nextState.errorCount = Object.keys(nextState.errors).length;
+    return nextState;
 }

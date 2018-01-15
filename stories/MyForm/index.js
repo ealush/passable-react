@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PassableProvider from '../../src/index';
+import PassableProvider from '../../dist/passable-provider';
 import passes from './passes';
 
 class MyForm extends Component {
@@ -19,14 +19,14 @@ class MyForm extends Component {
         }
     }
 
-    onStateChange(nextState) {
+    formStateUpdated(nextState) {
         console.log(nextState);
     }
 
     render() {
 
         return (
-            <PassableProvider passes={passes} initialFormState={this.initialFormState} onStateChange={this.onStateChange}>
+            <PassableProvider passes={passes} initialFormState={this.initialFormState} formStateUpdated={this.formStateUpdated}>
                 {({validateOnEvent, setTouchedOnEvent, fields, validateAll}) => (
                     <form onChange={validateOnEvent} onBlur={setTouchedOnEvent}>
                         <input type="text" defaultValue={fields.username.value} name="username"/>

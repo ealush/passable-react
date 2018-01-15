@@ -1,0 +1,155 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test mergeValidationResults function should default to empty passable object when of invalid type 1`] = `
+Object {
+  "errorCount": 0,
+  "errors": Object {},
+  "fields": Object {
+    "field_1": Object {
+      "touched": true,
+    },
+    "field_2": Object {
+      "value": 1,
+    },
+  },
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;
+
+exports[`Test mergeValidationResults function should default to empty passable object when of invalid type 2`] = `
+Object {
+  "errorCount": 0,
+  "errors": Object {},
+  "fields": Object {
+    "field_1": Object {
+      "touched": true,
+    },
+    "field_2": Object {
+      "value": 1,
+    },
+  },
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;
+
+exports[`Test mergeValidationResults function should default to empty passable object when of invalid type 3`] = `
+Object {
+  "errorCount": 0,
+  "errors": Object {},
+  "fields": Object {
+    "field_1": Object {
+      "touched": true,
+    },
+    "field_2": Object {
+      "value": 1,
+    },
+  },
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;
+
+exports[`Test mergeValidationResults function should default to empty passable object when of invalid type 4`] = `
+Object {
+  "errorCount": 0,
+  "errors": Object {},
+  "fields": Object {
+    "field_1": Object {
+      "touched": true,
+    },
+    "field_2": Object {
+      "value": 1,
+    },
+  },
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;
+
+exports[`Test mergeValidationResults function should default to empty passable object when of invalid type 5`] = `
+Object {
+  "errorCount": 0,
+  "errors": Object {},
+  "fields": Object {
+    "field_1": Object {
+      "touched": true,
+    },
+    "field_2": Object {
+      "value": 1,
+    },
+  },
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;
+
+exports[`Test mergeValidationResults function should default to empty passable object when of invalid type 6`] = `
+Object {
+  "errorCount": 0,
+  "errors": Object {},
+  "fields": Object {
+    "field_1": Object {
+      "touched": true,
+    },
+    "field_2": Object {
+      "value": 1,
+    },
+  },
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;
+
+exports[`Test mergeValidationResults function should merge validation results into existing state 1`] = `
+Object {
+  "errorCount": 1,
+  "errors": Object {
+    "field_1": 1,
+  },
+  "fields": Object {
+    "field_1": Object {
+      "errors": Array [
+        "error_string",
+      ],
+      "hasError": true,
+      "hasWarning": false,
+      "touched": true,
+      "warnings": Array [],
+    },
+    "field_2": Object {
+      "value": 1,
+    },
+  },
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;
+
+exports[`Test mergeValidationResults function should return default \`state\` if missing passable object 1`] = `
+Object {
+  "errorCount": 0,
+  "errors": Object {},
+  "fields": Object {
+    "field_1": Object {
+      "touched": true,
+    },
+    "field_2": Object {
+      "value": 1,
+    },
+  },
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;
+
+exports[`Test mergeValidationResults function should return default \`state\` if no arguments passed 1`] = `
+Object {
+  "errorCount": 0,
+  "errors": Object {},
+  "fields": Object {},
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;

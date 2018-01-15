@@ -1,18 +1,20 @@
 import React, { Component } from 'react';
-import {fieldAttributesByType, buildFieldsObject, mergeFieldIntoState, mergeValidationResults} from './lib'
+import { fieldAttributesByType,
+    buildFieldsObject,
+    mergeFieldIntoStateObject,
+    mergeValidationResults,
+    getDefaultState
+} from './lib'
+import deepassign from '@fiverr/futile/lib/deepassign';
 
 class PassableProvider extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = {
-            fields: buildFieldsObject(props.initialFormState),
-            errors: {},
-            warnings: {},
-            warningCount: 0,
-            errorCount: 0
-        };
+        this.state = deepassign({}, getDefaultState(), {
+            fields: buildFieldsObject(props.initialFormState)
+        });
 
         this.custom = props.custom || {};
         this.passes = props.passes;
@@ -27,7 +29,7 @@ class PassableProvider extends Component {
     getFieldAttributes(name, element) {
         if (!element) { return {}; }
 
-        return Object.assign({}, this.state.fields[name], fieldAttributesByType(element));
+        return deepassign({}, this.state.fields[name], fieldAttributesByType(element));
     }
 
     getFieldDataFromEvent = ({ target } = {}) => {
@@ -40,7 +42,7 @@ class PassableProvider extends Component {
         const { name, fieldAttributes } = this.getFieldDataFromEvent(e);
         const dirtyProp = setDirty ? { dirty: true } : {};
 
-        const nextState = mergeFieldIntoState(this.state, name, {
+        const nextState = mergeFieldIntoStateObject(this.state, name, {
             ...dirtyProp,
             ...fieldAttributes
         });
@@ -70,22 +72,24 @@ class PassableProvider extends Component {
     }
 
     validate = (specific = [], data) => {
-        this.setState((prevState) => {
-            const fields = data || this.state.fields || {};
-            let nextState = Object.assign({}, prevState, { fields });
-            nextState = mergeValidationResults(nextState, this.passes({
-                specific,
-                data: nextState.fields,
-                custom: this.custom
-            }));
-            nextState.warningCount = Object.keys(nextState.warnings).length;
-            nextState.errorCount = Object.keys(nextState.errors).length;
-            return nextState;
+        const fields = data || this.state.fields || {};
+        const nextState = deepassign({}, this.state, { fields });
+        const validationResult = this.passes({
+            specific,
+            data: nextState.fields,
+            custom: this.custom
         });
+
+        this.updateStateWithValidationResult(nextState, validationResult);
+    }
+
+    updateStateWithValidationResult = (nextState, validationResult) => {
+        nextState = mergeValidationResults(nextState, validationResult);
+        this.setState(nextState);
     }
 
     setInField(name, entries = {}, callback) {
-        this.setState((prevState) => mergeFieldIntoState(prevState, name, entries), callback);
+        this.setState((prevState) => mergeFieldIntoStateObject(prevState, name, entries), callback);
     }
 
     render() {

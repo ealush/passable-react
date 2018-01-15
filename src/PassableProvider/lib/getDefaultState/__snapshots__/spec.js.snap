@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test getDefaultState function should return correct default state 1`] = `
+Object {
+  "errorCount": 0,
+  "errors": Object {},
+  "fields": Object {},
+  "warningCount": 0,
+  "warnings": Object {},
+}
+`;
