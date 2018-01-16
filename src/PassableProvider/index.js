@@ -5,14 +5,15 @@ import { fieldAttributesByType,
     mergeValidationResults,
     getDefaultState
 } from './lib'
-import deepassign from '@fiverr/futile/lib/deepassign';
+import merge from 'lodash/merge';
+import isEqual from 'lodash/isEqual';
 
 class PassableProvider extends Component {
 
     constructor(props) {
         super(props);
 
-        this.state = deepassign({}, getDefaultState(), {
+        this.state = merge({}, getDefaultState(), {
             fields: buildFieldsObject(props.initialFormState)
         });
 
@@ -29,7 +30,7 @@ class PassableProvider extends Component {
     getFieldAttributes(name, element) {
         if (!element) { return {}; }
 
-        return deepassign({}, this.state.fields[name], fieldAttributesByType(element));
+        return merge({}, this.state.fields[name], fieldAttributesByType(element));
     }
 
     getFieldDataFromEvent = ({ target } = {}) => {
@@ -73,7 +74,7 @@ class PassableProvider extends Component {
 
     validate = (specific = [], data) => {
         const fields = data || this.state.fields || {};
-        const nextState = deepassign({}, this.state, { fields });
+        const nextState = merge({}, this.state, { fields });
         const validationResult = this.passes({
             specific,
             data: nextState.fields,
@@ -83,13 +84,18 @@ class PassableProvider extends Component {
         this.updateStateWithValidationResult(nextState, validationResult);
     }
 
+    updateState = (nextState, callback) => {
+        if (isEqual(this.state, nextState)) { return; }
+        this.setState(nextState, callback);
+    }
+
     updateStateWithValidationResult = (nextState, validationResult) => {
         nextState = mergeValidationResults(nextState, validationResult);
-        this.setState(nextState);
+        this.updateState(nextState);
     }
 
     setInField(name, entries = {}, callback) {
-        this.setState((prevState) => mergeFieldIntoStateObject(prevState, name, entries), callback);
+        this.updateState(mergeFieldIntoStateObject(this.state, name, entries), callback);
     }
 
     render() {

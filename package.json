@@ -1,6 +1,6 @@
 {
   "name": "passable-react",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "Wrapper Component for react that allows easy Passable integration",
   "main": "./dist/passable-provider.js",
   "scripts": {
@@ -47,6 +47,6 @@
     "passable": "^5.9.2"
   },
   "dependencies": {
-    "@fiverr/futile": "^1.10.0"
+    "lodash": "^4.17.4"
   }
 }

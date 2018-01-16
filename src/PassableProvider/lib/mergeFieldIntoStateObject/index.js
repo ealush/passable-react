@@ -1,12 +1,12 @@
-import deepassign from '@fiverr/futile/lib/deepassign';
+import merge from 'lodash/merge';
 
 export default function mergeFieldIntoStateObject(state = {}, name, entries = {}) {
     if (!name && name !== 0) { return state;}
     const fields = state.fields || {};
     const field = fields[name] || {};
-    const newField = deepassign({}, field, entries);
+    const newField = merge({}, field, entries);
 
-    return deepassign({}, state, {
-        fields: deepassign({}, fields, {[name]: newField})
+    return merge({}, state, {
+        fields: merge({}, fields, {[name]: newField})
     });
 }

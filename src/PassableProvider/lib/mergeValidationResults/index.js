@@ -1,11 +1,11 @@
 import { generateFieldValidationSummary, getDefaultState } from '../index';
-import deepassign from '@fiverr/futile/lib/deepassign';
+import merge from 'lodash/merge';
 
 export default function mergeValidationResults(state, passableObject) {
-    let nextState = deepassign({}, getDefaultState(), state);
+    let nextState = merge({}, getDefaultState(), state);
     if (!state || !passableObject) { return nextState; }
 
-    const validationResult = deepassign({
+    const validationResult = Object.assign({
         validationErrors: {},
         validationWarnings: {}
     }, passableObject);

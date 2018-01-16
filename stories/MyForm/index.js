@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import PassableProvider from '../../dist/passable-provider';
+import PassableProvider from '../../src';
 import passes from './passes';
 
 class MyForm extends Component {
@@ -20,7 +20,7 @@ class MyForm extends Component {
     }
 
     formStateUpdated(nextState) {
-        console.log(nextState);
+        // console.log(nextState);
     }
 
     render() {
