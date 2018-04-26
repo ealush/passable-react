@@ -1,6 +1,6 @@
 {
   "name": "passable-react",
-  "version": "0.7.2",
+  "version": "0.7.4",
   "description": "Wrapper Component for react that allows easy Passable integration",
   "main": "./dist/passable-provider.js",
   "scripts": {
@@ -37,14 +37,14 @@
     "enzyme-to-json": "^3.3.0",
     "eslint": "^4.13.1",
     "jest": "^22.0.4",
-    "passable": "^5.9.2",
+    "passable": "^6.0.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
     "uglifyjs-webpack-plugin": "^1.1.6"
   },
   "peerDependencies": {
-    "passable": "^5.9.2"
+    "passable": "^6.0.2"
   },
   "dependencies": {
     "lodash": "^4.17.4"

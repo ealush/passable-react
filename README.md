@@ -49,25 +49,23 @@ class App extends Component {
 }
 
 // ./passes.js
-import passable from 'passable';
+import passable, { enforce } from 'passable';
 
 export default function passes({ specific = [], data }) {
-    return passable('myform', specific, (pass, enforce) => {
-        pass('username', 'should be a string between 3 and 10 chars', () => {
+    return passable('myform', (test) => {
+        test('username', 'should be a string between 3 and 10 chars', () => {
             enforce(data.username.value).allOf({
                 largerThanOrEquals: 5,
                 smallerThanOrEquals: 10
             });
         });
 
-        pass('password', 'can either be a number, or empty', () => {
-            enforce(data.password.value).allOf({
-                isEmpty: false
-            });
+        test('password', 'can either be a number, or empty', () => {
+            enforce(data.password.value).isNotEmpty();
         });
 
-        pass('spam', 'must be checked', () => !!data.password.checked);
-    });
+        test('spam', 'must be checked', () => !!data.password.checked);
+    }, specific);
 }
 ```
 
