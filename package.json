@@ -35,7 +35,7 @@
     "enzyme": "^3.2.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.0",
-    "eslint": "^4.13.1",
+    "eslint": "^5.0.0",
     "jest": "^22.0.4",
     "passable": "^6.0.2",
     "react": "^16.2.0",
