@@ -23,7 +23,7 @@
   "author": "Evyatar Alush (evyatar.a@fiverr.com)",
   "license": "ISC",
   "devDependencies": {
-    "@fiverr/eslint-config-fiverr": "1.0.0",
+    "@fiverr/eslint-config-fiverr": "2.0.0",
     "@storybook/react": "^3.2.17",
     "babel-jest": "^22.0.2",
     "babel-loader": "^7.1.2",
