@@ -37,7 +37,7 @@
     "enzyme-to-json": "^3.3.0",
     "eslint": "^4.13.1",
     "jest": "^22.0.4",
-    "passable": "^6.0.2",
+    "passable": "^6.1.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-test-renderer": "^16.2.0",
