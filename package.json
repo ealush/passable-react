@@ -39,7 +39,7 @@
     "jest": "^22.0.4",
     "passable": "^6.0.2",
     "react": "^16.6.3",
-    "react-dom": "^16.2.0",
+    "react-dom": "^16.6.3",
     "react-test-renderer": "^16.2.0",
     "uglifyjs-webpack-plugin": "^1.1.6"
   },
