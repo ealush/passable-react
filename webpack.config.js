@@ -1,9 +1,9 @@
 const path = require('path'),
     webpack = require('webpack'),
-    UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-
+    TerserPlugin = require('terser-webpack-plugin');
 
 module.exports = {
+    mode: 'production',
     entry: `${__dirname}/src/index.js`,
     devtool: 'source-map',
     externals: {
@@ -18,13 +18,13 @@ module.exports = {
         libraryTarget: 'umd'
     },
     module: {
-        loaders: [{
+        rules: [{
             test: /\.(js)$/,
             exclude: /node_modules/,
             use: ['babel-loader']
         }]
     },
     plugins: [
-        new UglifyJSPlugin({sourceMap: true})
+        new TerserPlugin({ sourceMap: true })
     ]
 };

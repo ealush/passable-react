@@ -5,8 +5,8 @@ import { fieldAttributesByType,
     mergeValidationResults,
     getDefaultState
 } from './lib'
-import merge from 'lodash/merge';
 import isEqual from 'lodash/isEqual';
+import merge from 'lodash/merge';
 
 class PassableProvider extends Component {
 
