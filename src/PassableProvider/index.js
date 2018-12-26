@@ -7,6 +7,7 @@ import { fieldAttributesByType,
 } from './lib'
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
+import throttle from 'lodash/throttle';
 
 class PassableProvider extends Component {
 
@@ -17,6 +18,7 @@ class PassableProvider extends Component {
             fields: buildFieldsObject(props.initialFormState)
         });
 
+        this.throttle = props.throttle || 250;
         this.custom = props.custom || {};
         this.passes = props.passes;
     }
@@ -65,32 +67,43 @@ class PassableProvider extends Component {
     }
 
     validateOne = (name, data) => {
-        this.validate(name, data || this.state.fields || {});
+        this.updateField(data, () => {
+            this.validate(name);
+        });
     }
 
     validateAll = () => {
         this.validate();
     }
 
-    validate = (specific = [], data) => {
+    updateField = (fields, cb) => {
+        if (!fields) {return;}
+        const nextState = merge({}, this.state, {fields});
+        this.updateState(nextState, cb);
+    }
+
+    validate = throttle((specific = [], data) => {
         const fields = data || this.state.fields || {};
-        const nextState = merge({}, this.state, { fields });
         const validationResult = this.passes({
             specific,
-            data: nextState.fields,
+            data: fields,
             custom: this.custom
+        }).done((result) => {
+            this.updateStateWithValidationResult(result);
         });
 
-        this.updateStateWithValidationResult(nextState, validationResult);
-    }
+        if (validationResult.async) {
+            this.updateStateWithValidationResult(validationResult);
+        }
+    }, this.throttle)
 
     updateState = (nextState, callback) => {
         if (isEqual(this.state, nextState)) { return; }
         this.setState(nextState, callback);
     }
 
-    updateStateWithValidationResult = (nextState, validationResult) => {
-        nextState = mergeValidationResults(nextState, validationResult);
+    updateStateWithValidationResult = (validationResult) => {
+        const nextState = mergeValidationResults(this.state, validationResult);
         this.updateState(nextState);
     }
 
