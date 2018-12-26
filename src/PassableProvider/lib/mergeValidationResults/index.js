@@ -20,6 +20,8 @@ export default function mergeValidationResults(state, passableObject) {
             hasWarning
         } = generateFieldValidationSummary(curr);
 
+        const isAsync = Boolean(passableObject.async && passableObject.async[current]);
+
         hasError ? accumulator.errors[current] = curr.failCount
             : delete accumulator.errors[current];
 
@@ -27,6 +29,7 @@ export default function mergeValidationResults(state, passableObject) {
             : delete accumulator.warnings[current];
 
         accumulator.fields[current] = Object.assign({}, fields[current], {
+            pending: isAsync ? !passableObject.async[current].done : false,
             hasError,
             hasWarning,
             errors: validationResult.validationErrors[current] || [],

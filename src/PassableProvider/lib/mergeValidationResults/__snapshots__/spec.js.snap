@@ -115,6 +115,7 @@ Object {
       ],
       "hasError": true,
       "hasWarning": false,
+      "pending": false,
       "touched": true,
       "warnings": Array [],
     },

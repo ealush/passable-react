@@ -12,6 +12,6 @@ export default function passes({specific = [], data}) {
             enforce(parseInt(data.phone.value)).isNotEmpty();
         });
 
-        // test('phone', 'must resolve', new Promise((r) => setTimeout(r, 1500)));
+        test('phone', 'must resolve', new Promise((r) => setTimeout(r, 1500)));
     }, specific);
 }

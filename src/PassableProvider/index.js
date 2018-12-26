@@ -7,7 +7,7 @@ import { fieldAttributesByType,
 } from './lib'
 import isEqual from 'lodash/isEqual';
 import merge from 'lodash/merge';
-import throttle from 'lodash/throttle';
+import debounce from 'lodash/debounce';
 
 class PassableProvider extends Component {
 
@@ -18,7 +18,7 @@ class PassableProvider extends Component {
             fields: buildFieldsObject(props.initialFormState)
         });
 
-        this.throttle = props.throttle || 250;
+        this.validate = debounce(this.validate.bind(this), props.debounce || 0, { leading: false, trailing: true});
         this.custom = props.custom || {};
         this.passes = props.passes;
     }
@@ -29,21 +29,20 @@ class PassableProvider extends Component {
         }
     }
 
-    getFieldAttributes(name, element) {
+    getFieldAttributes(element) {
         if (!element) { return {}; }
 
-        return merge({}, this.state.fields[name], fieldAttributesByType(element));
+        return merge({}, this.state.fields[element.name], fieldAttributesByType(element));
     }
 
     getFieldDataFromEvent = ({ target } = {}) => {
-        const { name } = target;
-        const fieldAttributes = this.getFieldAttributes(name, target);
-        return { name, fieldAttributes };
+        return this.getFieldAttributes(target);
     }
 
     validateOnEvent = (e, setDirty = true) => {
-        const { name, fieldAttributes } = this.getFieldDataFromEvent(e);
-        const dirtyProp = setDirty ? { dirty: true } : {};
+        const fieldAttributes = this.getFieldDataFromEvent(e);
+        const dirtyProp = setDirty ? {dirty: true} : {};
+        const name = e.target.name;
 
         const nextState = mergeFieldIntoStateObject(this.state, name, {
             ...dirtyProp,
@@ -54,7 +53,9 @@ class PassableProvider extends Component {
     }
 
     setTouchedOnEvent = (e) => {
-        const { name, fieldAttributes } = this.getFieldDataFromEvent(e);
+        const fieldAttributes = this.getFieldDataFromEvent(e);
+
+        const name = e.target.name;
 
         if (this.state.fields[name] && this.state.fields[name].touched) {
             return;
@@ -67,9 +68,8 @@ class PassableProvider extends Component {
     }
 
     validateOne = (name, data) => {
-        this.updateField(data, () => {
-            this.validate(name);
-        });
+        this.updateField(data);
+        this.validate([name]);
     }
 
     validateAll = () => {
@@ -82,8 +82,8 @@ class PassableProvider extends Component {
         this.updateState(nextState, cb);
     }
 
-    validate = throttle((specific = [], data) => {
-        const fields = data || this.state.fields || {};
+    validate(specific = []) {
+        const fields = this.state.fields || {};
         const validationResult = this.passes({
             specific,
             data: fields,
@@ -95,7 +95,7 @@ class PassableProvider extends Component {
         if (validationResult.async) {
             this.updateStateWithValidationResult(validationResult);
         }
-    }, this.throttle)
+    }
 
     updateState = (nextState, callback) => {
         if (isEqual(this.state, nextState)) { return; }
